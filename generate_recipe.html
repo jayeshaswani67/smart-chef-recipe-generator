@@ -1,0 +1,73 @@
+
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+{% extends "base.html" %}
+{% block title %}Generate Recipe{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-green-600 text-white">
+                    <h3 class="text-center">Generate Your Perfect Recipe</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('generate_recipe_route') }}">
+                        <div class="mb-4">
+                            <label class="form-label">Select Ingredients</label>
+                            <div class="row">
+                                {% for category, items in ingredients.items() %}
+                                    <div class="col-md-4 mb-3">
+                                        <h5>{{ category }}</h5>
+                                        {% for item in items %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" 
+                                                       name="ingredients" id="ing-{{ item }}" value="{{ item }}">
+                                                <label class="form-check-label" for="ing-{{ item }}">
+                                                    {{ item }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="recipe_type" class="form-label">Recipe Type</label>
+                                <select class="form-select" id="recipe_type" name="recipe_type">
+                                    <option value="">Any Type</option>
+                                    {% for type in recipe_types %}
+                                        <option value="{{ type }}">{{ type }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cuisine" class="form-label">Cuisine</label>
+                                <select class="form-select" id="cuisine" name="cuisine">
+                                    <option value="">Any Cuisine</option>
+                                    {% for cuisine in cuisines %}
+                                        <option value="{{ cuisine }}">{{ cuisine }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Generate Recipe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

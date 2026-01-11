@@ -1,0 +1,79 @@
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+
+
+
+{% extends "base.html" %}
+
+{% block title %}Login - SmartChef{% endblock %}
+
+{% block content %}
+<section class="max-w-md mx-auto my-12">
+    <div class="bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Login to SmartChef</h1>
+        
+        <form id="login-form" method="POST" action="/login">
+            <div class="mb-6">
+                <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required 
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+            
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 mb-2">Password</label>
+                <input type="password" id="password" name="password" required 
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+            
+            <div class="mb-6 flex items-center">
+                <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                <label for="remember" class="ml-2 text-gray-700">Remember me</label>
+            </div>
+            
+            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full mb-4">
+                Login
+            </button>
+            
+            <div class="text-center">
+                <a href="/forgot-password" class="text-green-600 hover:text-green-800">Forgot password?</a>
+            </div>
+        </form>
+        
+        <div class="border-t border-gray-200 mt-6 pt-6 text-center">
+            <p class="text-gray-600">Don't have an account? <a href="/signup" class="text-green-600 hover:text-green-800 font-semibold">Sign up</a></p>
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        fetch('/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                return response.json().then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during login. Please try again.');
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

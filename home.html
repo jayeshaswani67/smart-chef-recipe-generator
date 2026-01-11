@@ -1,0 +1,96 @@
+
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+
+{% extends "base.html" %}
+
+{% block title %}Home - SmartChef{% endblock %}
+
+{% block content %}
+<section class="hero bg-green-100 rounded-lg p-8 mb-12">
+    <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Turn Leftovers into Delicious Meals</h1>
+            <p class="text-lg text-gray-600 mb-6">SmartChef helps you create amazing recipes with what you already have, reducing food waste and saving money.</p>
+            <a href="/recipes" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Find Recipes</a>
+        </div>
+        <div class="md:w-1/2">
+            <img src="/static/images/hero-image.jpg" alt="Delicious food" class="rounded-lg shadow-lg w-full">
+        </div>
+    </div>
+</section>
+
+<section class="mb-12">
+    <h2 class="text-3xl font-bold text-center mb-8">How It Works</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+            <div class="text-green-600 text-4xl mb-4">
+                <i class="fas fa-list"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">1. Enter Your Ingredients</h3>
+            <p class="text-gray-600">List what you have in your pantry or upload a photo of your ingredients.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+            <div class="text-green-600 text-4xl mb-4">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">2. Get Recipe Suggestions</h3>
+            <p class="text-gray-600">Our AI will find perfect recipes based on your available ingredients.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+            <div class="text-green-600 text-4xl mb-4">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">3. Smart Substitutions</h3>
+            <p class="text-gray-600">Get alternative suggestions for any missing ingredients.</p>
+        </div>
+    </div>
+</section>
+
+<section class="mb-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Popular Recipes</h2>
+    <div class="grid md:grid-cols-3 gap-6" id="popular-recipes">
+        <!-- Recipes will be loaded here via JavaScript -->
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    // Load popular recipes
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/recipes/popular')
+            .then(response => response.json())
+            .then(recipes => {
+                const container = document.getElementById('popular-recipes');
+                container.innerHTML = ''; // Clear existing content
+                recipes.forEach(recipe => {
+                    container.innerHTML += `
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="${recipe.image_url || '/static/images/recipe-placeholder.jpg'}" alt="${recipe.title}" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-xl mb-2">${recipe.title}</h3>
+                                <div class="flex items-center mb-2">
+                                    <span class="text-yellow-500 mr-1">
+                                        ${'★'.repeat(recipe.rating)}${'☆'.repeat(5 - recipe.rating)}
+                                    </span>
+                                    <span class="text-gray-600 text-sm">(${recipe.review_count})</span>
+                                </div>
+                                <div class="flex justify-between text-sm text-gray-600 mb-3">
+                                    <span><i class="fas fa-clock mr-1"></i> ${recipe.cook_time} mins</span>
+                                    <span><i class="fas fa-utensils mr-1"></i> ${recipe.difficulty}</span>
+                                </div>
+                                <a href="/recipes/${recipe.id}" class="text-green-600 font-semibold hover:text-green-800">View Recipe</a>
+                            </div>
+                        </div>
+                    `;
+                });
+            })
+            .catch(error => {
+                console.error('Error loading popular recipes:', error);
+            });
+    });
+</script>
+{% endblock %}
+{% endblock %}
