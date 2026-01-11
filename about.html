@@ -1,0 +1,76 @@
+
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+
+{% extends "base.html" %}
+
+{% block title %}About - SmartChef{% endblock %}
+
+{% block content %}
+<section class="mb-12">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">About SmartChef</h1>
+            
+            <div class="prose max-w-none">
+                <p class="text-lg text-gray-600 mb-6">
+                    SmartChef was born out of frustration with food waste and the daily struggle of deciding what to cook. 
+                    Our mission is to help home cooks make the most of their ingredients, reduce food waste, and discover 
+                    delicious new recipes.
+                </p>
+                
+                <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Our Story</h2>
+                <p class="mb-4">
+                    Founded in 2023 by a team of food enthusiasts and tech experts, SmartChef combines culinary expertise 
+                    with artificial intelligence to solve a common household problem. What started as a personal project to 
+                    use up leftovers has grown into a platform helping thousands of users worldwide.
+                </p>
+                
+                <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">How It Works</h2>
+                <p class="mb-4">
+                    SmartChef uses advanced algorithms to match your available ingredients with thousands of recipes in our 
+                    database. When you're missing an ingredient, our smart substitution system suggests alternatives based 
+                    on flavor profiles, dietary needs, and common pantry staples.
+                </p>
+                
+                <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Our Impact</h2>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div class="text-green-600 text-3xl font-bold mb-2">10,000+</div>
+                        <div class="text-gray-700">Recipes in our database</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div class="text-green-600 text-3xl font-bold mb-2">50,000+</div>
+                        <div class="text-gray-700">Users reducing food waste</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div class="text-green-600 text-3xl font-bold mb-2">1M+</div>
+                        <div class="text-gray-700">Meals cooked with SmartChef</div>
+                    </div>
+                </div>
+                
+                <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Meet the Team</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <img src="/static/images/team1.jpg" alt="Team member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="font-semibold text-lg">Alex Johnson</h3>
+                        <p class="text-gray-600">Founder & CEO</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <img src="/static/images/team2.jpg" alt="Team member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="font-semibold text-lg">Maria Garcia</h3>
+                        <p class="text-gray-600">Head Chef</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <img src="/static/images/team3.jpg" alt="Team member" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="font-semibold text-lg">Sam Wilson</h3>
+                        <p class="text-gray-600">Lead Developer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
